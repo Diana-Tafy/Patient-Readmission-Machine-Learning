@@ -21,11 +21,11 @@ model = joblib.load("readmission_pipeline.pkl")
 from pydantic import BaseModel, Field
 
 class PatientData(BaseModel):
-    age: float
-    length_of_stay: float
-    blood_sugar_levels: float
-    number_of_diagnoses: float
-    gender: str= Field(..., example="Female")
+    age: float = Field(..., example=68)
+    length_of_stay: float = Field(..., example=7)
+    blood_sugar_levels: float = Field(..., example=185)
+    number_of_diagnoses: float = Field(..., example=5)
+    gender: str = Field(..., example="Female")
 
 @app.post("/predict")
 def predict_readmission(patient: PatientData):
