@@ -25,7 +25,7 @@ class PatientData(BaseModel):
     length_of_stay: float
     blood_sugar_levels: float
     number_of_diagnoses: float
-    gender: Field(..., example="Female")
+    gender: str= Field(..., example="Female")
 
 @app.post("/predict")
 def predict_readmission(patient: PatientData):
