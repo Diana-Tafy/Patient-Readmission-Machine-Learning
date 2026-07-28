@@ -1,2 +1,78 @@
 # Patient-Readmission-Machine-Learning
-ML Model Link    [https://patient-readmission-machine-learning.onrender.com](https://patient-readmission-machine-learning.onrender.com)
+ML Model 
+
+# 🏥 Patient Readmission Risk Prediction API
+
+An end-to-end Healthcare Analytics solution featuring a machine learning classification pipeline trained on patient data and deployed as a live REST API using **FastAPI** on **Render**.
+
+---
+
+## 📌 Project Overview
+Hospital readmissions within 30 days are a critical metric for healthcare providers. This project utilizes machine learning to predict patient readmission risk, empowering clinical teams with data-driven insights to prioritize high-risk care management and post-discharge interventions.
+
+---
+
+## 🚀 Live Links
+* **Live API Base URL:** [https://patient-readmission-machine-learning.onrender.com](https://patient-readmission-machine-learning.onrender.com)
+* **Interactive API Documentation (Swagger UI):** [https://patient-readmission-machine-learning.onrender.com/docs](https://patient-readmission-machine-learning.onrender.com/docs)
+* **Frontend Web Dashboard:** *(https://patientreadmissionmodel.lovable.app)*
+
+---
+
+## 🛠️ Tech Stack & Tools
+* **Data Processing & Pipeline:** Scikit-Learn (`ColumnTransformer`, `StandardScaler`, `OneHotEncoder`), Pandas, NumPy
+* **Backend Framework:** FastAPI, Uvicorn
+* **Model Serialization:** Joblib
+* **Deployment Platform:** Render (Cloud Web Service)
+* **Language & Versioning:** Python 3.14 (Scikit-Learn `1.6.1`)
+
+---
+
+## 📊 Model Input Features & Risk Logic
+
+### Input Schema
+The API accepts structured JSON payloads with the following patient metrics:
+
+| Field Name | Type | Description |
+| :--- | :--- | :--- |
+| `age` | Integer | Patient age in years |
+| `length_of_stay` | Integer | Hospital stay duration (days) |
+| `blood_sugar_levels` | Float/Int | Fasting or average blood glucose level (mg/dL) |
+| `number_of_diagnoses` | Integer | Total recorded medical conditions |
+| `gender` | String | `"Male"` or `"Female"` |
+
+### Risk Thresholds
+The model outputs a probability score (%) mapped to three clinical risk tiers:
+* 🔴 **High Risk ($\ge$ 50%):** Immediate care management plan & mandatory 48-hour follow-up.
+* 🟡 **Moderate Risk (30% – 49%):** Standard discharge monitoring & post-care outreach.
+* 🟢 **Low Risk (< 30%):** Routine follow-up scheduled.
+
+---
+
+## ⚡ API Endpoint Reference
+
+### Request (`POST /predict`)
+```json
+{
+  "age": 68,
+  "length_of_stay": 7,
+  "blood_sugar_levels": 185.5,
+  "number_of_diagnoses": 5,
+  "gender": "Female"
+}
+
+Response Example
+{
+  "readmission_risk_score": 0.62,
+  "risk_category": "High Risk",
+  "recommendation": "Priority clinical follow-up within 48 hours."
+}
+
+Repository Structure
+Patient-Readmission-Machine-Learning/
+│
+└── Readmission-api/
+    ├── main.py                    # FastAPI application & route definitions
+    ├── readmission_pipeline.pkl   # Serialized Scikit-Learn ML pipeline
+    ├── requirements.txt           # Dependency management (pinned versions)
+    └── README.md                  # Project documentation
